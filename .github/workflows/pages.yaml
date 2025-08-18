@@ -1,23 +1,16 @@
 name: PagesAuto
 on:
-  push:
-    branches: [ main ]
+  push: { branches: [ main ] }
   workflow_dispatch: {}
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+permissions: { contents: read, pages: write, id-token: write }
+concurrency: { group: "pages", cancel-in-progress: true }
 
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      VITE_BASE: /contrastive-goat/   # <-- set to /<your-repo>/
+      VITE_BASE: /contrastive-goat/   # <-- EXACT repo path with leading/trailing slash
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,8 +21,7 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
+        with: { path: dist }
 
   deploy:
     needs: build
