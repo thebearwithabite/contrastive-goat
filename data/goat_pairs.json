@@ -1,0 +1,23 @@
+[
+  {
+    "id": "p01",
+    "a_seed": 5,
+    "b_seed": 8,
+    "next": "b",
+    "noise": 0.1
+  },
+  {
+    "id": "p02",
+    "a_seed": 2,
+    "b_seed": 3,
+    "next": "a",
+    "noise": 0.15
+  },
+  {
+    "id": "p03",
+    "a_seed": 7,
+    "b_seed": 9,
+    "next": "b",
+    "noise": 0.2
+  }
+]

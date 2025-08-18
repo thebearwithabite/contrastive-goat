@@ -1,0 +1,33 @@
+{
+  "name": "autogoat",
+  "version": "0.2.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "postbuild": "cp dist/index.html dist/404.html 2>/dev/null || copy dist\\index.html dist\\404.html",
+    "test": "playwright test",
+    "test:axe": "playwright test tests/axe.spec.ts",
+    "test:lh": "vite preview --port 4173 & wait-on http://localhost:4173 && lhci autorun",
+    "lint:content": "node tools/content-lint.mjs",
+    "ci:all": "npm run build && npm run lint:content && npx playwright install --with-deps && vite preview --port 4173 & wait-on http://localhost:4173 && npm test && npm run test:axe && npm run test:lh"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.26.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
+    "@lhci/cli": "^0.12.0",
+    "@playwright/test": "^1.54.2",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^5.0.0",
+    "http-server": "^14.1.1",
+    "vite": "^5.4.0",
+    "wait-on": "^7.2.0"
+  }
+}

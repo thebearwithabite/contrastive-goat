@@ -1,0 +1,46 @@
+[
+  {
+    "id": "a01",
+    "modality": "audio",
+    "src": "/audio/soft_rain.m4a",
+    "cluster": 0,
+    "tags": [
+      "soft",
+      "calm"
+    ],
+    "alt": "soft rain ambience"
+  },
+  {
+    "id": "b01",
+    "modality": "audio",
+    "src": "/audio/metal_scrape.m4a",
+    "cluster": 1,
+    "tags": [
+      "sharp",
+      "harsh"
+    ],
+    "alt": "metal scraping sound"
+  },
+  {
+    "id": "a02",
+    "modality": "audio",
+    "src": "/audio/distant_piano.m4a",
+    "cluster": 0,
+    "tags": [
+      "soft",
+      "melancholy"
+    ],
+    "alt": "distant piano phrase"
+  },
+  {
+    "id": "b02",
+    "modality": "audio",
+    "src": "/audio/alarm_beep.m4a",
+    "cluster": 1,
+    "tags": [
+      "urgent",
+      "piercing"
+    ],
+    "alt": "alarm beeping"
+  }
+]
