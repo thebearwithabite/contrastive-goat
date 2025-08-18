@@ -1,0 +1,4 @@
+import React from 'react'
+import data from '../../data/predict_sets.json'
+import { track } from '../lib/analytics'
+export default function Predict(){const [i,setI]=React.useState(0);const [score,setScore]=React.useState(0);const s=data[i];function choose(idx){track('predict_choice',{idx,answer:s.answer_index});if(idx===s.answer_index)setScore(v=>v+1);else setScore(v=>v-1);setI(v=>(v+1)%data.length)}return(<div className='card' style={{maxWidth:700,margin:'0 auto'}}><h2 style={{marginTop:0}}>Predict the Future Frame</h2><p><strong>Prompt:</strong> {s.prompt}</p><p>Which event is most likely <em>5 steps later</em>?</p><div className='grid' style={{gridTemplateColumns:'repeat(2, minmax(0,1fr))'}}>{s.choices.map((c,idx)=>(<button className='btn' key={idx} onClick={()=>choose(idx)}>{c}</button>))}</div><p style={{marginTop:'1rem'}}>Score: {score}</p></div>)}

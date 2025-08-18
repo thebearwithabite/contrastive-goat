@@ -1,0 +1,15 @@
+name: Contrastive Goat
+route_base: /
+deliverable: mobile-first web app (PWA-ready)
+games:
+  - id: predict-future-frame
+  - id: label-the-feeling
+  - id: contrastive-goat
+assets:
+  images: []
+  audio: []
+pwa:
+  theme_color: "#0b1215"
+acceptance:
+  - Loads under 2s on iPhone Safari (LTE)
+  - Playwright + axe pass; Lighthouse ≥ 90

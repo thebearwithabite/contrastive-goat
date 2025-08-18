@@ -1,0 +1,34 @@
+[
+  {
+    "id": "set01",
+    "mode": "text",
+    "prompt": "A hand touches water",
+    "choices": [
+      "ripples spread",
+      "a bird calls",
+      "a door closes",
+      "a hand dries"
+    ],
+    "answer_index": 0,
+    "target_offset": 5,
+    "meta": {
+      "difficulty": "easy"
+    }
+  },
+  {
+    "id": "set02",
+    "mode": "text",
+    "prompt": "Footsteps in a hallway",
+    "choices": [
+      "echo fades",
+      "light turns off",
+      "laugh erupts",
+      "glass breaks"
+    ],
+    "answer_index": 0,
+    "target_offset": 5,
+    "meta": {
+      "difficulty": "easy"
+    }
+  }
+]

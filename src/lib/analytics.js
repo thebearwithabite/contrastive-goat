@@ -1,0 +1,1 @@
+export function track(e,d={}){const t={t:Date.now(),event:e,...d};try{const k='autogoat_events';const a=JSON.parse(localStorage.getItem(k)||'[]');a.push(t);localStorage.setItem(k,JSON.stringify(a));}catch{} if(import.meta.env.DEV) console.log('[analytics]',t)}

@@ -1,0 +1,24 @@
+{
+  "budgets": {
+    "lighthouse_mobile": 90,
+    "main_bundle_kb_gz": 250
+  },
+  "a11y": {
+    "axe_block_critical": true,
+    "require_focus_visible": true
+  },
+  "tests": {
+    "playwright_required": true
+  },
+  "release": {
+    "require_ready_to_ship_label": false,
+    "use_canary": false,
+    "auto_rollback_on_error_rate": 0.05
+  },
+  "assets": {
+    "max_image_kb": 300,
+    "max_audio_mb": 3,
+    "require_alt_text": true,
+    "require_transcripts": true
+  }
+}
