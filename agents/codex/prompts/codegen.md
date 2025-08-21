@@ -1,9 +1,7 @@
-Goal: Implement/extend games defined in SPEC_PATH into src/, update data/, and add/adjust tests.
-Constraints: pass Playwright, Lighthouse >= 0.90 mobile, zero critical axe issues, respect ops/policy.json.
+Goal: Implement/extend the games defined in SPEC_PATH into src/, update data/,
+and adjust tests. Keep diffs small and pass ci:all (Playwright, axe, Lighthouse).
 Steps:
-1) Read SPEC_PATH and list routes/components to change.
-2) Generate code in-place. Keep diffs small.
-3) If data files are missing fields, add safe defaults.
-4) Update or create tests to cover new UI.
-Output: modified files only; do not delete workflows.
-
+1) Read SPEC_PATH; list required routes/components.
+2) Generate/modify code in-place.
+3) Add/adjust tests for new UI.
+Output: only changed files.

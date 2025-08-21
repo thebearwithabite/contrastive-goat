@@ -1,0 +1,49 @@
+name: CodexCodegen
+on:
+  schedule:
+    # every 6 hours; uses UTC. adjust if you want.
+    - cron: "0 */6 * * *"
+  workflow_dispatch: {}
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  codegen:
+    runs-on: ubuntu-latest
+    env:
+      CODEX_API_KEY: ${{ secrets.CODEX_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+
+      # Install deps for build/test gates
+      - run: npm ci || npm i
+
+      # Install your Codex CLI (replace this with your actual installer)
+      - name: Install Codex CLI
+        run: |
+          echo ">>> Replace this with your Codex CLI install command"
+          echo "e.g., npm i -g codex-cli"
+          echo "or curl -L ... > /usr/local/bin/codex && chmod +x /usr/local/bin/codex"
+
+      # Run scaffold from spec (uses the runner below)
+      - name: Codex scaffold from spec
+        run: bash agents/codex/run.sh scaffold specs/contrastive-goat.yaml || true
+
+      # Run gates locally so the PR comes in green
+      - name: Build & Test (ci:all)
+        run: |
+          npx playwright install --with-deps || true
+          npm run ci:all
+
+      # Open PR with any changes
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: codex/scaffold-${{ github.run_id }}
+          title: "codex: scaffold from spec"
+          commit-message: "codex: scaffold from spec"
+          body: "Automated codegen. Please review."
+          labels: automation,codex
