@@ -1,8 +1,8 @@
 {
   "name": "I Only Know What Happens Next",
   "short_name": "Next",
-  "start_url": "./",   // <- was "/" ; use relative start
-  "scope": "./",       // <- keep the app scoped to the subfolder
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0b1215",
   "theme_color": "#0b1215",
