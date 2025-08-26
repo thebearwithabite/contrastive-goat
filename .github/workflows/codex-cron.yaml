@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CODEX_API_KEY: ${{ secrets.CODEX_API_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -24,9 +25,18 @@ jobs:
       # Install your Codex CLI (replace this with your actual installer)
       - name: Install Codex CLI
         run: |
-          echo ">>> Replace this with your Codex CLI install command"
+          echo ">>> Codex CLI installation placeholder"
+          echo "Replace this step with your actual Codex CLI install command"
           echo "e.g., npm i -g codex-cli"
           echo "or curl -L ... > /usr/local/bin/codex && chmod +x /usr/local/bin/codex"
+          echo "For now, creating a mock codex command"
+          sudo tee /usr/local/bin/codex > /dev/null << 'EOF'
+          #!/bin/bash
+          echo "Mock codex CLI - replace with actual implementation"
+          echo "Args: $@"
+          exit 0
+          EOF
+          sudo chmod +x /usr/local/bin/codex
 
       # Run scaffold from spec (uses the runner below)
       - name: Codex scaffold from spec
@@ -37,6 +47,67 @@ jobs:
         run: |
           npx playwright install --with-deps || true
           npm run ci:all
+
+      - name: Assert metrics
+        run: |
+          # Install bc for arithmetic comparisons
+          sudo apt-get update && sudo apt-get install -y bc
+          
+          # Define number pattern for validation
+          number_pattern='^[0-9]+([.][0-9]+)?$'
+          
+          if [ ! -f test-results/lighthouse-report.html ]; then
+            echo "Lighthouse report not found: expected test-results/lighthouse-report.html"
+            exit 1
+          fi
+
+          if [ ! -f test-results/lighthouse-score.txt ]; then
+            echo "Lighthouse score file not found: expected test-results/lighthouse-score.txt"
+            exit 1
+          fi
+
+          if [ ! -f test-results/loss.txt ]; then
+            echo "LOSS file not found: expected test-results/loss.txt"
+            exit 1
+          fi
+
+          if [ ! -f test-results/accuracy.txt ]; then
+            echo "ACCURACY file not found: expected test-results/accuracy.txt"
+            exit 1
+          fi
+
+          score=$(cat test-results/lighthouse-score.txt)
+          if ! [[ "$score" =~ $number_pattern ]]; then
+            echo "Invalid score format: $score"
+            exit 1
+          fi
+          min_score=0.89
+          if ! (( $(echo "$score >= $min_score" | bc -l) )); then
+            echo "Lighthouse score $score is below expected >= $min_score"
+            exit 1
+          fi
+
+          loss=$(cat test-results/loss.txt)
+          if ! [[ "$loss" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+            echo "Invalid loss format: $loss"
+            exit 1
+          fi
+          if (( $(echo "$loss < 0.1" | bc -l) == 0 )); then
+            echo "LOSS $loss is not < 0.1"
+            exit 1
+          fi
+
+          acc=$(cat test-results/accuracy.txt)
+          if ! [[ "$acc" =~ $number_pattern ]]; then
+            echo "Invalid accuracy format: $acc"
+            exit 1
+          fi
+          if (( $(echo "$acc >= 0.95" | bc -l) == 0 )); then
+            echo "ACCURACY $acc is below expected >= 0.95"
+            exit 1
+          fi
+
+          echo "Metrics passed: Lighthouse score $score >= $min_score, LOSS $loss < 0.1, ACCURACY $acc >= 0.95"
 
       # Open PR with any changes
       - name: Create Pull Request
