@@ -61,6 +61,10 @@ jobs:
           fi
 
           score=$(cat test-results/lighthouse-score.txt)
+          if ! [[ "$score" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+            echo "Invalid score format: $score"
+            exit 1
+          fi
           min_score=0.89
           if ! awk "BEGIN {exit ($score >= $min_score)}"; then
             echo "Lighthouse score $score is below expected >= $min_score"
