@@ -1,18 +1,27 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './routes/App.jsx'
-import Home from './routes/Home.jsx'
-import Predict from './routes/Predict.jsx'
-import Feelings from './routes/Feelings.jsx'
-import Goat from './routes/Goat.jsx'
+
+// Lazy load routes for better performance
+const Home = React.lazy(() => import('./routes/Home.jsx'))
+const Predict = React.lazy(() => import('./routes/Predict.jsx'))
+const Feelings = React.lazy(() => import('./routes/Feelings.jsx'))
+const Goat = React.lazy(() => import('./routes/Goat.jsx'))
+// Loading component with consistent styling
+const LoadingFallback = () => (
+  <div className="card" style={{ maxWidth: 700, margin: '0 auto', textAlign: 'center' }}>
+    <p>Loading...</p>
+  </div>
+)
+
 const router = createBrowserRouter(
   [
     { path: '/', element: <App />, children: [
-      { index: true, element: <Home /> },
-      { path: '/predict', element: <Predict /> },
-      { path: '/feelings', element: <Feelings /> },
-      { path: '/goat', element: <Goat /> },
+      { index: true, element: <Suspense fallback={<LoadingFallback />}><Home /></Suspense> },
+      { path: '/predict', element: <Suspense fallback={<LoadingFallback />}><Predict /></Suspense> },
+      { path: '/feelings', element: <Suspense fallback={<LoadingFallback />}><Feelings /></Suspense> },
+      { path: '/goat', element: <Suspense fallback={<LoadingFallback />}><Goat /></Suspense> },
     ] }
   ],
   { basename: import.meta.env.BASE_URL }     // <-- add this line
