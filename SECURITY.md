@@ -11,7 +11,7 @@ The following table lists the versions of this project that currently receive se
 
 ## Reporting a Vulnerability
 
-To report a security vulnerability, please email us at [security@yourdomain.com](mailto:security@yourdomain.com). If you prefer, you may also open a private issue on GitHub using the "Security" issue template.
+To report a security vulnerability, please email us at [security@actual-domain.com](mailto:security@actual-domain.com). If you prefer, you may also open a private issue on GitHub using the "Security" issue template.
 
 - We will acknowledge your report within 2 business days.
 - We will investigate and provide status updates at least every 5 business days.
