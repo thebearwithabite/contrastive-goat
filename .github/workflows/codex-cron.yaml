@@ -38,6 +38,49 @@ jobs:
           npx playwright install --with-deps || true
           npm run ci:all
 
+      - name: Assert metrics
+        run: |
+          if [ ! -f test-results/lighthouse-report.html ]; then
+            echo "Lighthouse report not found: expected test-results/lighthouse-report.html"
+            exit 1
+          fi
+
+          if [ ! -f test-results/lighthouse-score.txt ]; then
+            echo "Lighthouse score file not found: expected test-results/lighthouse-score.txt"
+            exit 1
+          fi
+
+          if [ ! -f test-results/loss.txt ]; then
+            echo "LOSS file not found: expected test-results/loss.txt"
+            exit 1
+          fi
+
+          if [ ! -f test-results/accuracy.txt ]; then
+            echo "ACCURACY file not found: expected test-results/accuracy.txt"
+            exit 1
+          fi
+
+          score=$(cat test-results/lighthouse-score.txt)
+          min_score=0.89
+          if (( $(echo "$score < $min_score" | bc -l) )); then
+            echo "Lighthouse score $score is below expected >= $min_score"
+            exit 1
+          fi
+
+          loss=$(cat test-results/loss.txt)
+          if (( $(echo "$loss >= 0.1" | bc -l) )); then
+            echo "LOSS $loss is not < 0.1"
+            exit 1
+          fi
+
+          acc=$(cat test-results/accuracy.txt)
+          if (( $(echo "$acc < 0.95" | bc -l) )); then
+            echo "ACCURACY $acc is below expected >= 0.95"
+            exit 1
+          fi
+
+          echo "Metrics passed: Lighthouse score $score >= $min_score, LOSS $loss < 0.1, ACCURACY $acc >= 0.95"
+
       # Open PR with any changes
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
