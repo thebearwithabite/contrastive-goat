@@ -66,7 +66,7 @@ jobs:
             exit 1
           fi
           min_score=0.89
-          if ! awk "BEGIN {exit ($score >= $min_score)}"; then
+          if ! (( $(echo "$score >= $min_score" | bc -l) )); then
             echo "Lighthouse score $score is below expected >= $min_score"
             exit 1
           fi
