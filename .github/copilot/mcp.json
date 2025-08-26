@@ -1,0 +1,258 @@
+{
+  "mcpServers": {
+    "contrastive-goat-docs": {
+      "command": "mcp-server-filesystem",
+      "args": [
+        "--base-path",
+        ".",
+        "--allow-read",
+        "--allow-list"
+      ],
+      "env": {
+        "MCP_SERVER_NAME": "contrastive-goat-docs",
+        "MCP_SERVER_VERSION": "1.0.0"
+      },
+      "settings": {
+        "description": "Access to Contrastive Goat project documentation and source code",
+        "allowedPaths": [
+          "./README.md",
+          "./CONTRIBUTING.md",
+          "./package.json",
+          "./vite.config.js",
+          "./mcp_config.yaml",
+          "./ops/policy.json",
+          "./data/",
+          "./src/",
+          "./tests/",
+          "./.github/",
+          "./specs/"
+        ],
+        "excludedPaths": [
+          "./node_modules/",
+          "./dist/",
+          "./.git/",
+          "./test-results/",
+          "./.vite/"
+        ]
+      }
+    },
+    "contrastive-goat-context": {
+      "command": "mcp-server-memory",
+      "args": [
+        "--context-size",
+        "10000"
+      ],
+      "env": {
+        "MCP_SERVER_NAME": "contrastive-goat-context"
+      },
+      "settings": {
+        "description": "Project context and patterns for Contrastive Goat development",
+        "contexts": [
+          {
+            "name": "project-architecture",
+            "content": "React 18 PWA with Vite, accessibility-first, mobile-first design, MCP server integration, Playwright testing, Lighthouse performance monitoring"
+          },
+          {
+            "name": "coding-standards", 
+            "content": "Functional components with hooks, ES6+ syntax, React Router navigation, semantic HTML, WCAG AA accessibility, 250KB bundle limit, 90+ Lighthouse score"
+          },
+          {
+            "name": "file-organization",
+            "content": "src/routes/ for pages, src/components/ for reusable UI, src/utils/ for helpers, data/ for JSON content, tests/ for Playwright, ops/ for policies"
+          },
+          {
+            "name": "development-workflow",
+            "content": "Feature branches, conventional commits, npm run ci:all before push, accessibility and performance testing required, dev container available"
+          },
+          {
+            "name": "mcp-integration",
+            "content": "Python/FastAPI for MCP server, multi-model support, WebSocket and REST APIs, async processing, configuration via mcp_config.yaml"
+          }
+        ]
+      }
+    },
+    "contrastive-goat-specs": {
+      "command": "mcp-server-filesystem",
+      "args": [
+        "--base-path",
+        "./specs",
+        "--allow-read"
+      ],
+      "env": {
+        "MCP_SERVER_NAME": "contrastive-goat-specs"
+      },
+      "settings": {
+        "description": "Access to project specifications and requirements",
+        "allowedPaths": [
+          "./specs/"
+        ]
+      }
+    },
+    "contrastive-goat-data": {
+      "command": "mcp-server-filesystem", 
+      "args": [
+        "--base-path",
+        "./data",
+        "--allow-read"
+      ],
+      "env": {
+        "MCP_SERVER_NAME": "contrastive-goat-data"
+      },
+      "settings": {
+        "description": "Access to project data files and content structure",
+        "allowedPaths": [
+          "./data/predict_sets.json",
+          "./data/feelings_items.json", 
+          "./data/goat_pairs.json"
+        ],
+        "contentTypes": [
+          "application/json"
+        ]
+      }
+    },
+    "contrastive-goat-policies": {
+      "command": "mcp-server-filesystem",
+      "args": [
+        "--base-path", 
+        "./ops",
+        "--allow-read"
+      ],
+      "env": {
+        "MCP_SERVER_NAME": "contrastive-goat-policies"
+      },
+      "settings": {
+        "description": "Access to operational policies and configuration",
+        "allowedPaths": [
+          "./ops/policy.json"
+        ],
+        "contexts": [
+          {
+            "name": "performance-budgets",
+            "content": "Bundle size ≤250KB gzipped, Lighthouse mobile ≥90, images ≤300KB, audio ≤3MB"
+          },
+          {
+            "name": "accessibility-requirements", 
+            "content": "Alt text required, keyboard navigation, axe-core compliance, WCAG AA color contrast, focus management"
+          },
+          {
+            "name": "content-validation",
+            "content": "Image size limits, alt text enforcement, semantic HTML, proper ARIA labels"
+          }
+        ]
+      }
+    }
+  },
+  "clientInfo": {
+    "name": "GitHub Copilot",
+    "version": "1.0.0"
+  },
+  "protocolVersion": "2024-11-05",
+  "capabilities": {
+    "tools": true,
+    "resources": true,
+    "prompts": true,
+    "sampling": false
+  },
+  "instructions": {
+    "systemPrompt": "You are assisting with development of Contrastive Goat, a React 18 PWA with MCP server integration. Always prioritize accessibility (WCAG AA), performance (Lighthouse ≥90), and follow the established patterns in the codebase. Use functional components with hooks, maintain mobile-first design, and ensure all changes pass the CI pipeline including Playwright tests.",
+    "codeGeneration": {
+      "preferredPatterns": [
+        "Functional components with hooks over class components",
+        "ES6+ syntax and modern JavaScript patterns", 
+        "React Router for navigation",
+        "Semantic HTML elements",
+        "Accessibility-first development",
+        "Mobile-first responsive design",
+        "Performance-conscious implementations"
+      ],
+      "avoidPatterns": [
+        "Class components (use functional components)",
+        "Inline styles (use CSS classes)",
+        "Non-semantic HTML (divs for everything)",
+        "Missing alt text on images",
+        "Large bundle additions",
+        "Performance-degrading patterns"
+      ]
+    },
+    "testingGuidelines": [
+      "Add Playwright tests for new functionality",
+      "Ensure accessibility compliance with axe-core",
+      "Verify performance with Lighthouse",
+      "Run npm run ci:all before committing",
+      "Test keyboard navigation and screen readers"
+    ]
+  },
+  "tools": [
+    {
+      "name": "validate_accessibility",
+      "description": "Check if code changes maintain accessibility standards",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "component": {
+            "type": "string",
+            "description": "Component code to validate"
+          }
+        }
+      }
+    },
+    {
+      "name": "check_performance_impact", 
+      "description": "Estimate performance impact of code changes",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "additions": {
+            "type": "array",
+            "description": "New dependencies or large code additions"
+          }
+        }
+      }
+    },
+    {
+      "name": "suggest_tests",
+      "description": "Suggest appropriate Playwright tests for new functionality",
+      "inputSchema": {
+        "type": "object", 
+        "properties": {
+          "functionality": {
+            "type": "string",
+            "description": "Description of new functionality"
+          }
+        }
+      }
+    }
+  ],
+  "prompts": [
+    {
+      "name": "code_review_checklist",
+      "description": "Comprehensive checklist for code review",
+      "arguments": [
+        {
+          "name": "changeType",
+          "description": "Type of change (feature, fix, refactor, etc.)"
+        }
+      ]
+    },
+    {
+      "name": "accessibility_audit",
+      "description": "Review code for accessibility compliance",
+      "arguments": [
+        {
+          "name": "component", 
+          "description": "Component to audit"
+        }
+      ]
+    },
+    {
+      "name": "performance_optimization",
+      "description": "Suggest performance optimizations",
+      "arguments": [
+        {
+          "name": "context",
+          "description": "Performance context or concerns"
+        }
+      ]
+    }
+  ]
+}

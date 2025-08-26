@@ -19,6 +19,8 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        "github.copilot",
+        "github.copilot-chat",
         "ms-vscode.vscode-typescript-next",
         "bradlc.vscode-tailwindcss",
         "esbenp.prettier-vscode",
@@ -32,7 +34,8 @@
         "ms-vscode.live-server",
         "streetsidesoftware.code-spell-checker",
         "redhat.vscode-yaml",
-        "ms-vscode.vscode-json"
+        "ms-vscode.vscode-json",
+        "ms-vscode.accessibility-insights"
       ],
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash",
@@ -45,6 +48,19 @@
         "python.defaultInterpreterPath": "/usr/local/python/current/bin/python",
         "python.formatting.provider": "black",
         "go.toolsManagement.autoUpdate": true,
+        "github.copilot.enable": {
+          "*": true,
+          "plaintext": false,
+          "markdown": true,
+          "scminput": false
+        },
+        "github.copilot.advanced": {
+          "length": 500,
+          "temperature": 0.1,
+          "top_p": 1,
+          "listCount": 3
+        },
+        "accessibility-insights.enableTelemetry": false,
         "files.exclude": {
           "**/node_modules": true,
           "**/dist": true,
