@@ -2,9 +2,7 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
-
+The following table lists the versions of this project that currently receive security updates. We support the latest major release (5.x) and the previous major release (4.x) with security patches. Older versions are not maintained and will not receive security updates.
 | Version | Supported          |
 | ------- | ------------------ |
 | 5.1.x   | :white_check_mark: |
