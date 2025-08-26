@@ -72,12 +72,20 @@ jobs:
           fi
 
           loss=$(cat test-results/loss.txt)
+          if ! [[ "$loss" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+            echo "Invalid loss format: $loss"
+            exit 1
+          fi
           if ! awk "BEGIN {exit ($loss < 0.1)}"; then
             echo "LOSS $loss is not < 0.1"
             exit 1
           fi
 
           acc=$(cat test-results/accuracy.txt)
+          if ! [[ "$acc" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+            echo "Invalid accuracy format: $acc"
+            exit 1
+          fi
           if ! awk "BEGIN {exit ($acc >= 0.95)}"; then
             echo "ACCURACY $acc is below expected >= 0.95"
             exit 1
