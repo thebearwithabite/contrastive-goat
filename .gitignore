@@ -1,3 +1,36 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+.vite
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test results
+test-results
+.lighthouseci
+
+# Editor
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright
+/playwright-report/
+/playwright/.cache/
+
 node_modules/
 dist/
 test-results/
