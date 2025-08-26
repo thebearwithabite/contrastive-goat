@@ -61,7 +61,7 @@ jobs:
           fi
 
           score=$(cat test-results/lighthouse-score.txt)
-          if ! [[ "$score" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+          if ! [[ "$score" =~ $number_pattern ]]; then
             echo "Invalid score format: $score"
             exit 1
           fi
