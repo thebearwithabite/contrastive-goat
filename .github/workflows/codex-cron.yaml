@@ -76,7 +76,7 @@ jobs:
             echo "Invalid loss format: $loss"
             exit 1
           fi
-          if ! awk "BEGIN {exit ($loss < 0.1)}"; then
+          if (( $(echo "$loss < 0.1" | bc -l) == 0 )); then
             echo "LOSS $loss is not < 0.1"
             exit 1
           fi
