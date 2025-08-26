@@ -62,19 +62,19 @@ jobs:
 
           score=$(cat test-results/lighthouse-score.txt)
           min_score=0.89
-          if (( $(echo "$score < $min_score" | bc -l) )); then
+          if ! awk "BEGIN {exit ($score >= $min_score)}"; then
             echo "Lighthouse score $score is below expected >= $min_score"
             exit 1
           fi
 
           loss=$(cat test-results/loss.txt)
-          if (( $(echo "$loss >= 0.1" | bc -l) )); then
+          if ! awk "BEGIN {exit ($loss < 0.1)}"; then
             echo "LOSS $loss is not < 0.1"
             exit 1
           fi
 
           acc=$(cat test-results/accuracy.txt)
-          if (( $(echo "$acc < 0.95" | bc -l) )); then
+          if ! awk "BEGIN {exit ($acc >= 0.95)}"; then
             echo "ACCURACY $acc is below expected >= 0.95"
             exit 1
           fi
