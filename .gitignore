@@ -1,0 +1,37 @@
+node_modules/
+dist/
+test-results/
+.vite/
+*.log
+.DS_Store
+
+# Development container artifacts
+.devcontainer/.docker
+
+# MCP server logs and cache
+logs/
+models/
+profiles/
+
+# Temporary development files
+tmp/
+temp/
+.cache/
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Go artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Editor artifacts
+.vscode/settings.json
+.idea/
