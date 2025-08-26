@@ -1,0 +1,91 @@
+{
+  "name": "Contrastive Goat Development",
+  "image": "mcr.microsoft.com/devcontainers/universal:2-focal",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11"
+    },
+    "ghcr.io/devcontainers/features/go:1": {
+      "version": "1.21"
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.vscode-typescript-next",
+        "bradlc.vscode-tailwindcss",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-eslint",
+        "ms-playwright.playwright",
+        "ms-python.python",
+        "ms-python.pylint",
+        "ms-python.black-formatter",
+        "golang.go",
+        "ms-vscode.test-adapter-converter",
+        "ms-vscode.live-server",
+        "streetsidesoftware.code-spell-checker",
+        "redhat.vscode-yaml",
+        "ms-vscode.vscode-json"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "typescript.preferences.includePackageJsonAutoImports": "on",
+        "playwright.reuseBrowser": true,
+        "python.defaultInterpreterPath": "/usr/local/python/current/bin/python",
+        "python.formatting.provider": "black",
+        "go.toolsManagement.autoUpdate": true,
+        "files.exclude": {
+          "**/node_modules": true,
+          "**/dist": true,
+          "**/.vite": true,
+          "**/test-results": true
+        }
+      }
+    }
+  },
+
+  "forwardPorts": [
+    5173,
+    4173,
+    3000,
+    8000
+  ],
+  
+  "portsAttributes": {
+    "5173": {
+      "label": "Vite Dev Server",
+      "onAutoForward": "notify"
+    },
+    "4173": {
+      "label": "Vite Preview Server",
+      "onAutoForward": "silent"
+    },
+    "3000": {
+      "label": "Development Server",
+      "onAutoForward": "silent"
+    },
+    "8000": {
+      "label": "MCP Server",
+      "onAutoForward": "silent"
+    }
+  },
+
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  
+  "remoteUser": "codespace",
+  
+  "mounts": [
+    "source=${localWorkspaceFolder}/.devcontainer/post-create.sh,target=/tmp/post-create.sh,type=bind"
+  ]
+}
