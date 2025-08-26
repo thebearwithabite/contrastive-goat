@@ -86,7 +86,7 @@ jobs:
             echo "Invalid accuracy format: $acc"
             exit 1
           fi
-          if ! awk "BEGIN {exit ($acc >= 0.95)}"; then
+          if (( $(echo "$acc >= 0.95" | bc -l) == 0 )); then
             echo "ACCURACY $acc is below expected >= 0.95"
             exit 1
           fi
