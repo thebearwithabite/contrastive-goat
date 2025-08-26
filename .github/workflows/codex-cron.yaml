@@ -82,7 +82,7 @@ jobs:
           fi
 
           acc=$(cat test-results/accuracy.txt)
-          if ! [[ "$acc" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+          if ! [[ "$acc" =~ $number_pattern ]]; then
             echo "Invalid accuracy format: $acc"
             exit 1
           fi
