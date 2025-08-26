@@ -4,6 +4,10 @@
   "http://localhost:4173/predict": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1756102616569-27421.report.html",
   "http://localhost:4173/feelings": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1756102616961-40162.report.html",
   "http://localhost:4173/goat": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1756102617390-10783.report.html"
+  "http://localhost:4173/": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1755996354761-78278.report.html",
+  "http://localhost:4173/predict": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1755996355117-58463.report.html",
+  "http://localhost:4173/feelings": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1755996355432-96663.report.html",
+  "http://localhost:4173/goat": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1755996355840-70636.report.html"
   "http://localhost:4173/": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1756214125492-15266.report.html",
   "http://localhost:4173/predict": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1756214125834-15462.report.html",
   "http://localhost:4173/feelings": "https://storage.googleapis.com/lighthouse-infrastructure.appspot.com/reports/1756214126173-11153.report.html",
