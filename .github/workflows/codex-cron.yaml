@@ -25,9 +25,18 @@ jobs:
       # Install your Codex CLI (replace this with your actual installer)
       - name: Install Codex CLI
         run: |
-          echo ">>> Replace this with your Codex CLI install command"
+          echo ">>> Codex CLI installation placeholder"
+          echo "Replace this step with your actual Codex CLI install command"
           echo "e.g., npm i -g codex-cli"
           echo "or curl -L ... > /usr/local/bin/codex && chmod +x /usr/local/bin/codex"
+          echo "For now, creating a mock codex command"
+          sudo tee /usr/local/bin/codex > /dev/null << 'EOF'
+          #!/bin/bash
+          echo "Mock codex CLI - replace with actual implementation"
+          echo "Args: $@"
+          exit 0
+          EOF
+          sudo chmod +x /usr/local/bin/codex
 
       # Run scaffold from spec (uses the runner below)
       - name: Codex scaffold from spec
@@ -41,6 +50,12 @@ jobs:
 
       - name: Assert metrics
         run: |
+          # Install bc for arithmetic comparisons
+          sudo apt-get update && sudo apt-get install -y bc
+          
+          # Define number pattern for validation
+          number_pattern='^[0-9]+([.][0-9]+)?$'
+          
           if [ ! -f test-results/lighthouse-report.html ]; then
             echo "Lighthouse report not found: expected test-results/lighthouse-report.html"
             exit 1
