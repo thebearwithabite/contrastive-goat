@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CODEX_API_KEY: ${{ secrets.CODEX_API_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
