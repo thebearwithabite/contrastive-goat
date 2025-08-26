@@ -38,3 +38,9 @@ npm run preview
 
 ## Policy
 - `ops/policy.json` controls budgets and requirements.
+
+## Security & Dependencies
+- Dependencies are kept up-to-date for security
+- Vite 6.x for modern build tooling
+- Lighthouse CI 0.15.x for performance monitoring
+- Regular security audits via `npm audit`
