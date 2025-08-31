@@ -1,1 +1,5 @@
-0.95
+Performance: 1.00
+Accessibility: 1.00
+Best Practices: 1.00
+SEO: 1.00
+
