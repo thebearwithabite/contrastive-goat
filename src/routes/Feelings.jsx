@@ -9,6 +9,7 @@ export default function Feelings() {
   const [selectedItem, setSelectedItem] = React.useState(null);
   const [playingAudio, setPlayingAudio] = React.useState(null);
   const containerRef = React.useRef(null);
+  const itemRefs = React.useRef({});
 
   function drop(where, item) {
     setClusters(c => ({ ...c, [where]: [...c[where], item] }));
@@ -26,8 +27,8 @@ export default function Feelings() {
       playEffect(item.src, { volume: 0.6 });
       setPlayingAudio(item.id);
       
-      // Visual ripple effect
-      const buttonEl = document.getElementById(`item-${item.id}`);
+      // Visual ripple effect using ref
+      const buttonEl = itemRefs.current[item.id];
       if (buttonEl && containerRef.current) {
         const rect = buttonEl.getBoundingClientRect();
         const containerRect = containerRef.current.getBoundingClientRect();
@@ -69,7 +70,7 @@ export default function Feelings() {
               {availableItems.map(i => (
                 <button 
                   key={i.id}
-                  id={`item-${i.id}`}
+                  ref={el => itemRefs.current[i.id] = el}
                   className={`btn${selectedItem?.id === i.id ? ' active' : ''}`}
                   onClick={() => selectItem(i)} 
                   aria-label={i.alt}

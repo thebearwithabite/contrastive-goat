@@ -37,8 +37,20 @@ class EmbedAPI {
    * Handle incoming messages from parent
    */
   handleMessage(event) {
-    // In production, validate event.origin
-    // if (event.origin !== this.parentOrigin) return;
+    // Validate origin in production - for development we accept all
+    // TODO: Set specific allowed origins in production
+    const allowedOrigins = [
+      'https://papersthatdream.com',
+      'https://thebearwithabite.github.io',
+      'http://localhost:5173',
+      'http://localhost:4173'
+    ];
+    
+    // In production, uncomment this validation:
+    // if (!allowedOrigins.includes(event.origin)) {
+    //   console.warn('Rejected message from unauthorized origin:', event.origin);
+    //   return;
+    // }
 
     const { type, data } = event.data;
 

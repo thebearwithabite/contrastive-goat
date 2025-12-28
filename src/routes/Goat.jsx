@@ -99,6 +99,7 @@ export default function Goat() {
   const [score, setScore] = React.useState(0);
   const [feedback, setFeedback] = React.useState('');
   const [isTransitioning, setIsTransitioning] = React.useState(false);
+  const [isFading, setIsFading] = React.useState(false);
   const containerRef = React.useRef(null);
   
   const p = pairs[idx];
@@ -112,8 +113,12 @@ export default function Goat() {
     if (isCorrect) {
       playSuccess();
       setScore(s => s + 1);
-      // Increase ambient volume slightly with each correct answer
-      fadeAmbient(0.3 + Math.min(score, 10) * 0.02, 1.0);
+      // Increase ambient volume slightly with each correct answer (with debouncing)
+      if (!isFading) {
+        setIsFading(true);
+        fadeAmbient(0.3 + Math.min(score, 10) * 0.02, 1.0);
+        setTimeout(() => setIsFading(false), 1000);
+      }
       
       // Particle burst effect
       if (containerRef.current) {
@@ -128,8 +133,12 @@ export default function Goat() {
     } else {
       playFailure();
       setScore(s => s - 1);
-      // Decrease ambient volume on wrong answer
-      fadeAmbient(Math.max(0.2, 0.3 - Math.abs(score) * 0.02), 1.0);
+      // Decrease ambient volume on wrong answer (with debouncing)
+      if (!isFading) {
+        setIsFading(true);
+        fadeAmbient(Math.max(0.2, 0.3 - Math.abs(score) * 0.02), 1.0);
+        setTimeout(() => setIsFading(false), 1000);
+      }
     }
     
     // Poetic feedback

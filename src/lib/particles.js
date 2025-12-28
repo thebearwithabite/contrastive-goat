@@ -150,9 +150,9 @@ export class ParticleSystem {
     particle.y = y;
     this.particles.push(particle);
     
-    // Keep particle count under control
+    // Keep particle count under control - remove from end for O(1)
     if (this.particles.length > this.options.count * 2) {
-      this.particles.shift();
+      this.particles.pop();
     }
   }
 }

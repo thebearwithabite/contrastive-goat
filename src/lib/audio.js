@@ -14,6 +14,7 @@ class AudioManager {
     this.ambientSource = null;
     this.isMuted = false;
     this.isInitialized = false;
+    this.failedUrls = new Set(); // Cache failed URLs to avoid retrying
   }
 
   /**
@@ -61,6 +62,11 @@ class AudioManager {
       return this.audioBuffers.get(key);
     }
 
+    // Check if this URL has previously failed
+    if (this.failedUrls.has(url)) {
+      return null;
+    }
+
     try {
       const response = await fetch(url);
       const arrayBuffer = await response.arrayBuffer();
@@ -69,6 +75,7 @@ class AudioManager {
       return audioBuffer;
     } catch (error) {
       console.warn(`Failed to load audio ${url}:`, error);
+      this.failedUrls.add(url); // Cache failed URL
       return null;
     }
   }
