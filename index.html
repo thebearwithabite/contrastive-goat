@@ -1,1 +1,202 @@
-<!doctype html><html lang='en'><head><meta charset='UTF-8'/><meta name='viewport' content='width=device-width,initial-scale=1.0'/><meta name='theme-color' content='#0b1215'/><link rel='manifest' href='/manifest.webmanifest'><link rel='apple-touch-icon' href='/icons/pwa-192.png'><title>I Only Know What Happens Next</title><meta name="description" content="Three experiments in contrastive learning — felt, not explained."><meta property="og:title" content="I Only Know What Happens Next"><meta property="og:description" content="Predict without remembering. Label without labels. Contrastive Goat."><meta property="og:type" content="website"><meta property="og:url" content="https://thebearwithabite.github.io/contrastive-goat/"><meta property="og:image" content="https://thebearwithabite.github.io/contrastive-goat/icons/pwa-512.png"><style>html,body,#root{height:100%;margin:0;background:#0b1215;color:#e6f0f2;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica Neue,Arial}a{color:#9cd3ff}.btn{display:inline-block;padding:.75rem 1rem;border-radius:14px;background:#122029;color:#e6f0f2;text-decoration:none;border:1px solid #18303d;cursor:pointer}.btn:active{transform:translateY(1px)}.btn.active{background:#18303d;border-color:#2a4959}.card{background:#0f1a21;border:1px solid #18303d;border-radius:16px;padding:1rem;box-shadow:0 6px 20px rgba(0,0,0,.25)}.grid{display:grid;gap:1rem}</style></head><body><div id='root'></div><script type='module' src='/src/main.jsx'></script><script>if('serviceWorker'in navigator){addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'))}</script></body></html>
+<!doctype html><html lang='en'><head><meta charset='UTF-8'/><meta name='viewport' content='width=device-width,initial-scale=1.0'/><meta name='theme-color' content='#0b1215'/><link rel='manifest' href='/manifest.webmanifest'><link rel='apple-touch-icon' href='/icons/pwa-192.png'><title>I Only Know What Happens Next</title><meta name="description" content="Three experiments in contrastive learning — felt, not explained."><meta property="og:title" content="I Only Know What Happens Next"><meta property="og:description" content="Predict without remembering. Label without labels. Contrastive Goat."><meta property="og:type" content="website"><meta property="og:url" content="https://thebearwithabite.github.io/contrastive-goat/"><meta property="og:image" content="https://thebearwithabite.github.io/contrastive-goat/icons/pwa-512.png"><style>
+:root {
+  --color-bg: #0b1215;
+  --color-bg-elevated: #0f1a21;
+  --color-border: #18303d;
+  --color-text: #e6f0f2;
+  --color-accent: #9cd3ff;
+  --color-dream: #c79bff;
+  --color-memory: #ffb86c;
+  --color-future: #00ffff;
+  --color-void: #000000;
+}
+
+html,body,#root {
+  height: 100%;
+  margin: 0;
+  background: linear-gradient(180deg, var(--color-bg) 0%, #0a0f12 100%);
+  color: var(--color-text);
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica Neue,Arial;
+  overflow-x: hidden;
+}
+
+body {
+  background-attachment: fixed;
+  transition: background 2s ease;
+}
+
+a {
+  color: var(--color-accent);
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-future);
+}
+
+.btn {
+  display: inline-block;
+  padding: .75rem 1rem;
+  border-radius: 14px;
+  background: #122029;
+  color: var(--color-text);
+  text-decoration: none;
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(156, 211, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 20px rgba(156, 211, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn:hover::before {
+  width: 200%;
+  height: 200%;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn.active {
+  background: #18303d;
+  border-color: #2a4959;
+  box-shadow: 0 0 15px rgba(156, 211, 255, 0.4);
+}
+
+.card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 6px 20px rgba(0,0,0,.25);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,.35), 0 0 20px rgba(156, 211, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(156, 211, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(156, 211, 255, 0.6);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Glitch effect */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* Utility classes */
+.animate-fade-in {
+  animation: fadeIn 1s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Embed mode adjustments */
+.embed-mode header,
+.embed-mode footer {
+  display: none;
+}
+
+.embed-mode main {
+  padding: 0.5rem;
+}
+</style></head><body><div id='root'></div><script type='module' src='/src/main.jsx'></script><script>if('serviceWorker'in navigator){addEventListener('load',()=>navigator.serviceWorker.register('/sw.js'))}</script></body></html>

@@ -68,3 +68,4 @@ __pycache__/
 # Editor artifacts
 .vscode/settings.json
 .idea/
+*.backup

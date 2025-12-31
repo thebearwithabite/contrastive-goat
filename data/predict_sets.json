@@ -30,5 +30,101 @@
     "meta": {
       "difficulty": "easy"
     }
+  },
+  {
+    "id": "set03",
+    "mode": "text",
+    "prompt": "A memory surfaces",
+    "choices": [
+      "it dissolves again",
+      "thunder rumbles",
+      "a phone rings",
+      "coffee grows cold"
+    ],
+    "answer_index": 0,
+    "target_offset": 5,
+    "meta": {
+      "difficulty": "medium"
+    }
+  },
+  {
+    "id": "set04",
+    "mode": "text",
+    "prompt": "Rain begins to fall",
+    "choices": [
+      "puddles form",
+      "a door slams",
+      "silence deepens",
+      "colors brighten"
+    ],
+    "answer_index": 0,
+    "target_offset": 5,
+    "meta": {
+      "difficulty": "easy"
+    }
+  },
+  {
+    "id": "set05",
+    "mode": "text",
+    "prompt": "Eyes close slowly",
+    "choices": [
+      "darkness arrives",
+      "music starts",
+      "wind picks up",
+      "ice melts"
+    ],
+    "answer_index": 0,
+    "target_offset": 5,
+    "meta": {
+      "difficulty": "easy"
+    }
+  },
+  {
+    "id": "set06",
+    "mode": "text",
+    "prompt": "A pattern emerges",
+    "choices": [
+      "understanding follows",
+      "lights flicker",
+      "paper tears",
+      "breath catches"
+    ],
+    "answer_index": 0,
+    "target_offset": 5,
+    "meta": {
+      "difficulty": "medium"
+    }
+  },
+  {
+    "id": "set07",
+    "mode": "text",
+    "prompt": "The network learns",
+    "choices": [
+      "loss decreases",
+      "stars appear",
+      "water boils",
+      "keys jingle"
+    ],
+    "answer_index": 0,
+    "target_offset": 5,
+    "meta": {
+      "difficulty": "medium"
+    }
+  },
+  {
+    "id": "set08",
+    "mode": "text",
+    "prompt": "Time stretches thin",
+    "choices": [
+      "moments blur together",
+      "a clock chimes",
+      "shoes untie",
+      "steam rises"
+    ],
+    "answer_index": 0,
+    "target_offset": 5,
+    "meta": {
+      "difficulty": "hard"
+    }
   }
 ]

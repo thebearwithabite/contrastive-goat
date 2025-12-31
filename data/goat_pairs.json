@@ -19,5 +19,40 @@
     "b_seed": 9,
     "next": "b",
     "noise": 0.2
+  },
+  {
+    "id": "p04",
+    "a_seed": 12,
+    "b_seed": 15,
+    "next": "a",
+    "noise": 0.12
+  },
+  {
+    "id": "p05",
+    "a_seed": 1,
+    "b_seed": 4,
+    "next": "b",
+    "noise": 0.18
+  },
+  {
+    "id": "p06",
+    "a_seed": 10,
+    "b_seed": 6,
+    "next": "a",
+    "noise": 0.14
+  },
+  {
+    "id": "p07",
+    "a_seed": 13,
+    "b_seed": 11,
+    "next": "b",
+    "noise": 0.16
+  },
+  {
+    "id": "p08",
+    "a_seed": 14,
+    "b_seed": 3,
+    "next": "a",
+    "noise": 0.22
   }
 ]
