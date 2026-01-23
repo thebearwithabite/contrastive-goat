@@ -69,6 +69,9 @@ class AudioManager {
 
     try {
       const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
       const arrayBuffer = await response.arrayBuffer();
       const audioBuffer = await this.context.decodeAudioData(arrayBuffer);
       this.audioBuffers.set(key, audioBuffer);
@@ -84,7 +87,14 @@ class AudioManager {
    * Play a sound effect
    */
   async playEffect(url, options = {}) {
-    if (!this.isInitialized || this.isMuted) return;
+    if (!this.isInitialized) {
+      console.warn(`Audio not initialized. Call init() first before playing: ${url}`);
+      return;
+    }
+    
+    if (this.isMuted) {
+      return;
+    }
 
     await this.resume();
 
@@ -92,7 +102,9 @@ class AudioManager {
 
     try {
       const buffer = await this.loadAudio(url, url);
-      if (!buffer) return;
+      if (!buffer) {
+        return;
+      }
 
       const source = this.context.createBufferSource();
       source.buffer = buffer;
@@ -167,78 +179,25 @@ class AudioManager {
   /**
    * Play interaction sound (subtle click/whoosh)
    */
-  playClick() {
-    if (!this.isInitialized || this.isMuted) return;
-    
-    this.resume();
-    
-    // Generate a subtle click sound
-    const oscillator = this.context.createOscillator();
-    const gainNode = this.context.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(this.effectsGain);
-    
-    oscillator.frequency.value = 800;
-    gainNode.gain.value = 0.1;
-    
-    const now = this.context.currentTime;
-    gainNode.gain.setValueAtTime(0.1, now);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-    
-    oscillator.start(now);
-    oscillator.stop(now + 0.1);
+  async playClick() {
+    // Use actual click audio file instead of synthesized sound
+    return await this.playEffect('/audio/click.m4a', { volume: 0.5 });
   }
 
   /**
    * Play success chime
    */
-  playSuccess() {
-    if (!this.isInitialized || this.isMuted) return;
-    
-    this.resume();
-    
-    const oscillator = this.context.createOscillator();
-    const gainNode = this.context.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(this.effectsGain);
-    
-    const now = this.context.currentTime;
-    oscillator.frequency.setValueAtTime(523.25, now); // C5
-    oscillator.frequency.setValueAtTime(659.25, now + 0.1); // E5
-    oscillator.frequency.setValueAtTime(783.99, now + 0.2); // G5
-    
-    gainNode.gain.setValueAtTime(0.2, now);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
-    
-    oscillator.start(now);
-    oscillator.stop(now + 0.4);
+  async playSuccess() {
+    // Use actual success audio file instead of synthesized sound
+    return await this.playEffect('/audio/correct.m4a', { volume: 0.6 });
   }
 
   /**
    * Play failure/discordant tone
    */
-  playFailure() {
-    if (!this.isInitialized || this.isMuted) return;
-    
-    this.resume();
-    
-    const oscillator = this.context.createOscillator();
-    const gainNode = this.context.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(this.effectsGain);
-    
-    const now = this.context.currentTime;
-    oscillator.frequency.setValueAtTime(220, now); // A3
-    oscillator.frequency.setValueAtTime(207.65, now + 0.15); // G#3 (dissonant)
-    
-    gainNode.gain.setValueAtTime(0.15, now);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
-    
-    oscillator.start(now);
-    oscillator.stop(now + 0.3);
+  async playFailure() {
+    // Use actual wrong/failure audio file instead of synthesized sound
+    return await this.playEffect('/audio/wrong.m4a', { volume: 0.6 });
   }
 
   /**
