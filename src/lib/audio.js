@@ -87,12 +87,10 @@ class AudioManager {
    * Play a sound effect
    */
   async playEffect(url, options = {}) {
-    if (!this.isInitialized) {
-      console.warn(`Audio not initialized. Call init() first before playing: ${url}`);
-      return;
-    }
-    
-    if (this.isMuted) {
+    if (!this.isInitialized || this.isMuted) {
+      if (!this.isInitialized) {
+        console.warn(`Audio not initialized. Call init() first before playing: ${url}`);
+      }
       return;
     }
 
@@ -102,9 +100,7 @@ class AudioManager {
 
     try {
       const buffer = await this.loadAudio(url, url);
-      if (!buffer) {
-        return;
-      }
+      if (!buffer) return;
 
       const source = this.context.createBufferSource();
       source.buffer = buffer;
@@ -181,7 +177,7 @@ class AudioManager {
    */
   async playClick() {
     // Use actual click audio file instead of synthesized sound
-    return await this.playEffect('/audio/click.m4a', { volume: 0.5 });
+    return this.playEffect('/audio/click.m4a', { volume: 0.5 });
   }
 
   /**
@@ -189,7 +185,7 @@ class AudioManager {
    */
   async playSuccess() {
     // Use actual success audio file instead of synthesized sound
-    return await this.playEffect('/audio/correct.m4a', { volume: 0.6 });
+    return this.playEffect('/audio/correct.m4a', { volume: 0.6 });
   }
 
   /**
@@ -197,7 +193,7 @@ class AudioManager {
    */
   async playFailure() {
     // Use actual wrong/failure audio file instead of synthesized sound
-    return await this.playEffect('/audio/wrong.m4a', { volume: 0.6 });
+    return this.playEffect('/audio/wrong.m4a', { volume: 0.6 });
   }
 
   /**
